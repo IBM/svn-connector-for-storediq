@@ -1,0 +1,1 @@
+# svn-connector-for-storediq
