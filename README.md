@@ -27,6 +27,14 @@ TBD
 
 ## Methodology
 
+All operations that are run by IBM StoredIQ application on data objects are categorized as the following APIs:
+
+* Connection management
+* Data object traversal management
+* Attribute management
+* Content access management
+
+To develop a connector, need to implement these APIs.
 The main approach used in developing connector is to find a way to download all the content of desired data source into the IBM  StoredIQ data server. Once all the files are downloaded, an user can harvest (index) to see all the content of data source in StoredIQ suite and information set(infoset) gets created. This infoset can be used to provide insight into an organization’s unstructured content at a given point in time.
 
 ## Pre-requisites
@@ -37,13 +45,21 @@ The main approach used in developing connector is to find a way to download all 
 
 ### 1. Develop the IBM StoredIQ Connector 
 
-Once the user have installed StoredIQ Connector, the user will have a folders named as sample_connector and siq_connector. The siq_connector contains python modules that will act as a template for developing a new connector.
-Sample_connector contains an implementation of connector for NFSv3 file system. To make the development of connector simpler, we will modify this folder contents in this code pattern. We will rename the folder name relevant to new connector name. In our case we will rename it to tsvn_connector. This folder will be containing following python modules:
-* __init__.py
+Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here](pdf path??).
+
+The connector API SDK also includes code that implements a fully working NFS based sample connector. This sample connector is also preinstalled at `/usr/lib/python2.6/site-packages/sample_connector` folder. To make development of a new data source connector simpler, we have chosen this `sample_connector` as a base code. We will copy this folder as a new connector folder. In this pattern, we have given name as `svn_connector`.
+
+```
+$ cd /usr/lib/python2.6/site-packages
+$ cp -r sample_connector svn_connector
+```
+
+Now svn_connector contains following python modules:
+* `__init__.py`: It is as per the python convention to treat the directory as containing package.
+* `sdk_version.py`: Avoid making changes to this. This module is provided for version compatibility enforcement.
 * sample_attributes.py
 * sample_conn.py
 * sdk_version.py
-Avoid making any changes to __init__.py and sdk_version.py.
 
 Change the name of the data source in sample_attributes.py. Here we are giving data source name as ‘tsvn-template’(any name).
 
