@@ -47,8 +47,6 @@ All operations that are run by IBM StoredIQ application on data objects are cate
 
 To develop a connector, need to implement these APIs.
 
-The main approach used in developing connector is to find a way to download all the content of desired data source into the IBM  StoredIQ data server. Once all the files are downloaded, an user can harvest (index) to see all the content of data source in StoredIQ suite and information set(infoset) gets created. This infoset can be used to provide insight into an organization’s unstructured content at a given point in time.
-
 ## Pre-requisites
 
 * [SVN Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Setup SVN server.
@@ -87,28 +85,23 @@ Now `svn_connector` contains following python modules:
 * **sample_conn.py**
 
   Rename this file as `svn_conn.py`. The actual code for svn data source connector is written in the `svn_conn.py` module. The
-  svn_conn.py will be containing APIs to connect and traverse through data sources. We will make changes to following API:
-
-Connect() – It uses the information provided by constructor method to establish connection with the server that hosts the data source.
-
-Create mount point. check if the path for mount point exists, if not then we will create a path and bind that path for a local checkout.
-
-validate_directories() – 
-Create new initial directory with the same name as of svn repository/directory which we want to checkout. This name will be given by user from storedIQ interface.For this purpose we have added a function named <..>.
-
-list_dir() – This method lists the files and sub-directories in the specified repository/directory. 
-To do this, we will start checking out all the file from svn server to local server. To achieve the same, we have added a function called create_checkout(). This method will be called when we will harvest the newly added volume in storedIQ.
-For svn data source, pysvn package has been used. To do that we will make a connection to svn server and then we will checkout files using pysvn.Client.checkout(). Once checkout is complete, we will mount all these files to mount point created earlier. 
-
-There are some more APIs in template available sample_connector.py which will be called from storedIQ interface but we are not modifying.
-
-lstat() - This method retrieves the file system-specific attributes for the specified file.
-
-list_dir_next() - This method retrieves the next itemCount items from the list of items that is provided by most recent list_dir() call.
-
-lstat_extras() – This method is used to get the file system and the extra attributes for the specified file.
-
-get_list_dir_page_size() - Returns the page size that is used in calls to list_dir().
+  svn_conn.py will be containing APIs to connect and traverse through data sources. As mentioned in [Methodology](#methodology), need to add code for all four categories. 
+  
+  High level code for svn connector can be explained as follows.
+  
+  * *connect()* uses the information provided by constructor method to establish connection with the server that hosts the data source. The constructor method provides information that is collected by using the `Add Volume UI` dialog (explained in Test section).
+  
+  * *Create mount point*. It checks if the path for mount point exists, else it creates the path and bind that path for a local checkout.
+  
+  * *validate_directories()* creates new initial directory with the same name as of svn repository/directory which we want to checkout. This name will be given by user from storedIQ interface. [Need to confirm??]
+  
+  * *checkout* all the files from a specific repository of svn server to <local server??>. To achieve this for svn data source, `pysvn.Client.checkout()` is used from pysvn package. After checkout, mount all these files to the mount point created earlier.
+  
+  * *list_dir()* lists the files and sub-directories in the specified repository. This method gets called when we harvest the newly added volume in StoredIQ. The firt time call of list_dir(), internally calls checkout function.
+  
+  * *lstat()* gets called if a directory is chosen to list the files. This method retrieves the file system-specific attributes like size for the specified file.
+  
+  > Note: This pattern provides you code only for read capability of svn connector. 
 
 ### 2. Integrate the connector with live IBM StoredIQ
 
