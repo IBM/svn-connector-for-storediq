@@ -127,10 +127,11 @@ To integrate the connector with live Stored IQ, need to copy the directory that 
 
 To register the connector, perform the following steps on each Data Server and Gateway.
 
-1.	cd to site-packages
-  ```
+1.	Change your directory to site-packages.
+   
+   ```
    cd /usr/lib/python2.6/site-packages
-  ```
+   ```
   
 2. Run the following command.
 
@@ -152,7 +153,7 @@ To register the connector, perform the following steps on each Data Server and G
    service deepfiler restart
    ```
 
-### 4. Test the newly added svn connector by adding new volume for svn connector
+### 4. Test the Connector by adding new volume for svn connector
 
 * Once the connector is successfully integrated with storedIQ, it will be visible in UI of storedIQ as a new source type.
 * Now we can select our connector as source type and fill other details in UI as follows:
