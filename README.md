@@ -53,6 +53,15 @@ To develop a connector, need to implement these APIs.
 
 ## Steps
 
+Follow these steps to run this code pattern. 
+
+1. [Develop the IBM StoredIQ Connector]()
+2. [Integrate the connector with live IBM StoredIQ]()
+3. [Register the Connector with live IBM StoredIQ]()
+4. [Test the Connector by adding new volume for svn connector]()
+
+
+
 ### 1. Develop the IBM StoredIQ Connector 
 
 Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here](pdf path??).
