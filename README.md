@@ -110,29 +110,47 @@ lstat_extras() – This method is used to get the file system and the extra attr
 
 get_list_dir_page_size() - Returns the page size that is used in calls to list_dir().
 
-### 2. Integrate the IBM StoredIQ Connector with live IBM StoredIQ application
+### 2. Integrate the connector with live IBM StoredIQ
 
-This step involves the simple copy action. Copy the tsvn_connector folder that contains the Connector code to each Data Server (DS) and Gateway (GW). For example, the command to execute on your development system can be 
-scp –rp <my_connector> root@ <IP address of Dataserver>/usr/lib/python2.6/site-packages
-we will use the same command to copy tsvn_connector to gateway server.
-For windows this can be done using winscp.
+To integrate the connector with live Stored IQ, need to copy the directory that contains the Connector code i.e. `svn_connector` directory in each Data Server and Gateway. The command to execute on your development system will be :
 
-### 3. Register the svn Connector with the live IBM StoredIQ application
+```
+ # for Data server
+ scp –rp svn_connector root@<IP address of Dataserver>:/usr/lib/python2.6/site-packages
+ 
+ # for Gateway
+ scp –rp svn_connector root@<IP address of Gateway>:/usr/lib/python2.6/site-packages
+```
+> If development system is windows, then copy operation can be done using winscp.
 
-On each data server and gateway do the following steps:
-a)	cd to site-packages.
-b)	Run the command 
-python32 /usr/loca/storediq/bin/ register_connector.py -c <classpath> [-w ’yes’ | ’no’].  
-For example, if your Connector folder is my_connector, class name is MyConnector and the module that defines the class is my_module, then class-path is'my_connector.my_module.MyConnector' (quotes included).
-For the -w option, if it is specified, it indicates that the Connector is a read-write Connector. 
-In our case it would be:
-python32 /usr/local/storediq/bin/register_connector.py -c tsvn_connector.tsvn_conn.TSvnConnector
+### 3. Register the Connector with live IBM StoredIQ
 
-Run the command python32 /usr/loca/storediq/bin/ register_connector.py -h for more information.
-c)	Restart services on the data server and gateway by using this command: 
-service deepfiler restart
+To register the connector, perform the following steps on each Data Server and Gateway.
 
-(    Need to put steps screenshots in mac here  )
+1.	cd to site-packages
+  ```
+   cd /usr/lib/python2.6/site-packages
+  ```
+  
+2. Run the following command.
+
+   python32 /usr/loca/storediq/bin/register_connector.py -c <classpath> [-w ’yes’ | ’no’]
+ 
+   For example, if your Connector folder is my_connector, class name is MyConnector and the module that defines the class is my_module, then class-path is'my_connector.my_module.MyConnector' (quotes included).
+   
+   For the -w option, if it is specified, it indicates that the Connector is a read-write Connector.
+   
+   ```
+   python32 /usr/local/storediq/bin/register_connector.py -c svn_connector.svn_conn.SvnConnector
+   ```
+
+   > Run the command python32 /usr/loca/storediq/bin/register_connector.py -h for more information.
+   
+3. Restart services on the Data Server and Gateway. Use the following command to restart.
+  
+   ```
+   service deepfiler restart
+   ```
 
 ### 4. Test the newly added svn connector by adding new volume for svn connector
 
