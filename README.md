@@ -96,7 +96,7 @@ Now `svn_connector` contains following python modules:
   Rename this file as `svn_conn.py`. The actual code for svn data source connector is written in the `svn_conn.py` module. The
   svn_conn.py will be containing APIs to connect and traverse through data sources. As mentioned in [Methodology](#methodology), need to add code for all four categories. 
   
-  High level code for svn connector can be explained as follows.
+  High level flow of code for svn connector can be explained as follows.
   
   * *connect()* uses the information provided by constructor method to establish connection with the server that hosts the data source. The constructor method provides information that is collected by using the `Add Volume UI` dialog (explained in Test section).
   
@@ -154,43 +154,53 @@ To register the connector, perform the following steps on each Data Server and G
    ```
    service deepfiler restart
    ```
+   
+   Before proceeding to next step, wait till both the servers come up.
 
 ### 4. Test the Connector by adding new volume for svn connector
 
-* Once the connector is successfully integrated with storedIQ, it will be visible in UI of storedIQ as a new source type.
-* Now we can select our connector as source type and fill other details in UI as follows:
+* Access the StoredIQ dashboard. If the connector is successfully integrated with StoredIQ, it will be visible as a new source type at StoredIQ dashboard.
 
-  Server name – It is domain name or IP address of svn server.
+  ![image2](images/img2.png)
+
+* Now we can select our connector as source type and fill other details in dashboard as shown.
+  * Server name – It is domain name or IP address of svn server.
+  * Username – It is required to authenticate user to remote svn server.
+  * Password – It is password of svn server required to authenticate user to remote svn server.
+  * Volume name – This will be the name of our newly added volume. It could be any name.
+  * Initial Directory – It will be name of any directory from where we will start checkout.
+  * Class name – This will be the class path name as discussed earlier.
   
-  Username – It is required to authenticate user to remote svn server.
-  
-  Password – It is password of svn server required to authenticate user to remote svn server.
-  
-  Volume name – This will be the name of our newly added volume. It could be any name.
-  
-  Initial Directory – It will be name of any directory from where we will start checkout.
-  
-  Class name – This will be the class path name as discussed earlier.
+  ![image3](images/img3.png)
  
-* Once the volume is added successfully, it will be available in list of volume in UI.
+* Once the volume is added successfully, it will be available in list of volume in dashboard.
 
-* Now harvest can be run on newly added volume to see the content of svn server in storedIQ UI. To do that select the newly added volume from the list of volumes and click on the harvest. Further it will ask for harvest name which could be anything and will give few options to select such as immediate or schedule harvest and full or incremental harvest.
+  ![image4](images/img4.png)
 
-* Once the harvest is complete, the details of newly added volume in UI will get updated and will show number of data objects added and total
+* Now harvest can be run on newly added volume to see the content of svn server in StoredIQ dashboard. To do that select the newly added volume from the list of volumes and click on the harvest. Further it will ask for harvest name which could be anything and will give few options to select such as immediate or schedule harvest and full or incremental harvest as shown in image.
 
-* Create Infoset to see the content of svn server in storedIQ interface and to read the content of files . To do that go to system infosets create new infoset. Give the details required and select newly added volumes from available volumes and click add and finally save.
+  ![image5](images/img5.png)
 
-* After creating the infoset go to data workbench from the storedIQ interface.
+* Once the harvest is complete, the details of newly added volume will get updated and will show number of data objects added and total data objects size.
+
+  ![image6](images/img6.png)
+
+* Create Infoset to see the content of svn server in StoredIQ dashboard and to read the content of files. To do that go to system infosets create new infoset. Give the details required and select newly added volumes from available volumes and click add and finally save.
+
+  ![image7](images/img7.png)
+
+* After creating the infoset go to data workbench from the StoredIQ dashboard.
+
+  ![image8](images/img8.png)
 
 * Data workbench will show list of infoset status and state. Select the infoset added in previous step from the list.
 
-* Once infoset is selected, all the contents of your svn server would be visible and content of file can be seen by clicking file name. 
+  ![image9](images/img9.png)
 
+* Once infoset is selected, all the contents of your svn server would be visible and content of file can be seen by clicking file name.
 
-
-
-
-
+  ![image10](images/img10.png)
+  
 
 ## License
 [Apache 2.0](LICENSE)
