@@ -3,7 +3,7 @@
 
 Data is growing exponentially. We are the creators and consumers of data. With this growth of data, organizations find it difficult to manage this effectively. This growth in data has also contributed to new challenges like security, governing and protecting privacy. IBM StoredIQ platform provides powerful solutions for managing unstructured data in-place. It addresses the problems of records management, electronic discovery, compliance, storage optimization, and data migration initiatives. 
 
-Organizations have freedom to choose data sources for their need. It may involve multiple data sources with different versions. A data source can be considered as a location which contains unstructured content. By providing an in-depth assessment of unstructured data where it is, the StoredIQ gives organizations visibility into data to make more informed business and legal decisions. Data Source is an important part for IBM Stored IQ solution. All the features of IBM StoredIQ can be utilized by making a connection between a data source and StoredIQ. The connection between a data source and StoredIQ is established using a connector. Stored IQ provides flexibility to customers to choose data source and it supports 85+ data sources out of the box. Some of the data sources include Box, Microsoft Office 365, FileNet etc. 
+Organizations have freedom to choose data sources for their need. It may involve multiple data sources with different versions. A data source can be considered as a location which contains unstructured content. By providing an in-depth assessment of unstructured data where it is, the StoredIQ gives organizations visibility into data to make more informed business and legal decisions. Data Source is an important part for IBM Stored IQ solution. Stored IQ provides flexibility to customers to choose data source and it supports 85+ data sources out of the box. Some of the data sources include Box, Microsoft Office 365, FileNet etc. All the features of IBM StoredIQ can be utilized by making a connection between a data source and StoredIQ. The connection between a data source and StoredIQ is established using a connector.  
 
 The recent release of IBM StoredIQ added a Connector API SDK which can be used by business partners and customers to create custom connector for new data sources which StoredIQ does not support. The IBM StoredIQ Connecter API SDK simplifies connector development by decoupling connector logic from the StoredIQ application logic. It can also be used to customise and extend existing connector. Once you create a new connector, you can use it to manage data in Stored IQ just like you do it with the supported data sources.
 
@@ -35,6 +35,7 @@ All operations that are run by IBM StoredIQ application on data objects are cate
 * Content access management
 
 To develop a connector, need to implement these APIs.
+
 The main approach used in developing connector is to find a way to download all the content of desired data source into the IBM  StoredIQ data server. Once all the files are downloaded, an user can harvest (index) to see all the content of data source in StoredIQ suite and information set(infoset) gets created. This infoset can be used to provide insight into an organization’s unstructured content at a given point in time.
 
 ## Pre-requisites
@@ -54,17 +55,28 @@ $ cd /usr/lib/python2.6/site-packages
 $ cp -r sample_connector svn_connector
 ```
 
-Now svn_connector contains following python modules:
-* `__init__.py`: It is as per the python convention to treat the directory as containing package.
-* `sdk_version.py`: Avoid making changes to this. This module is provided for version compatibility enforcement.
-* sample_attributes.py
-* sample_conn.py
-* sdk_version.py
+Now `svn_connector` contains following python modules:
 
-Change the name of the data source in sample_attributes.py. Here we are giving data source name as ‘tsvn-template’(any name).
+* **`__init__.py`**
 
-Note: fs_name could be anything.
-Our actual code for svn connector will go into sample_conn.py module. The sample_conn.py will be containing APIs to connect and traverse through data sources. We will make changes to following API:
+  It is as per the python convention to treat the directory as containing package.
+  
+* **sdk_version.py**
+
+  Avoid making changes to this. This module is provided for version compatibility enforcement.
+  
+* **sample_attributes.py**
+
+  Change the name of the data source in sample_attributes.py. Here we are giving data source name as `svn-template`.
+  
+  ![image1](images/img1.png)
+
+  > Note: fs_name could be anything.
+  
+* **sample_conn.py**
+
+  Rename this file as `svn_conn.py`. The actual code for svn data source connector is written in the `svn_conn.py` module. The
+  svn_conn.py will be containing APIs to connect and traverse through data sources. We will make changes to following API:
 
 Connect() – It uses the information provided by constructor method to establish connection with the server that hosts the data source.
 
