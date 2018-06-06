@@ -29,10 +29,21 @@ TBD
 
 All operations that are run by IBM StoredIQ application on data objects are categorized as the following APIs:
 
-* Connection management
-* Data object traversal management
-* Attribute management
-* Content access management
+* **Connection management**
+ 
+  The APIs in this group manage connections to the data source.
+  
+* **Data object traversal management**
+
+  APIs in this group manage data traversal. By default, StoredIQ traverses data source tree in depth-first pattern.
+  
+* **Attribute management**
+
+  APIs in this group manage custom attributes. The standard attributes of a data object collected by Stored IQ by default includes size, access times etc.
+  
+* **Content access management**
+
+  APIs in this group manage the content that is retrieved from the data objects like open file, read file and so on.
 
 To develop a connector, need to implement these APIs.
 
