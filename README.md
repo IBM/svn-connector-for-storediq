@@ -213,6 +213,7 @@ To register the connector, perform the following steps on each Data Server and G
 
   ![image10](images/img10.png)
   
+Using this methodology, a connector can be built for any new data source with IBM StoredIQ.
 
 ## License
 [Apache 2.0](LICENSE)
