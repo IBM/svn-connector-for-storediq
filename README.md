@@ -42,7 +42,6 @@ All operations that are run by IBM StoredIQ application on data objects are cate
   APIs in this group manage custom attributes. The standard attributes of a data object collected by Stored IQ by default includes size, access times etc.
   
 * **Content access management**
-
   APIs in this group manage the content that is retrieved from the data objects like open file, read file and so on.
 
 To develop a connector, need to implement these APIs.
@@ -85,7 +84,7 @@ Now `svn_connector` contains following python modules:
   
 * **sample_attributes.py**
 
-  Change the name of the data source in sample_attributes.py. Here we are giving data source name as `svn-template`.
+  Change the name of the data source in sample_attributes.py. Here we are giving data source name as `tsvn-template`.
   
   ![image1](images/img1.png)
 
