@@ -108,7 +108,7 @@ Now `svn_connector` contains following python modules:
   
   * *list_dir()* lists the files and sub-directories in the specified repository. This method gets called when we harvest the newly added volume in StoredIQ. The firt time call of list_dir(), internally calls checkout function.
   
-  * *lstat()* gets called if a directory is chosen to list the files. This method retrieves the file system-specific attributes like size for the specified file.
+  * *lstat()* gets called if a directory is chosen to list the files. This method retrieves the file system-specific attributes like size, timestamp etc. for the specified file.
   
   > Note: This pattern provides you code only for read capability of svn connector. 
 
