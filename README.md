@@ -1,11 +1,11 @@
 ## ** work in progress **
 # Enhance IBM StoredIQ capabilities with new data sources using Connector API SDK 
 
-Data is growing exponentially. We are the creators and consumers of data. With this growth of data, organizations find it difficult to manage this effectively. This growth in data has also contributed to new challenges like security, governing and protecting privacy. IBM StoredIQ platform provides powerful solutions for managing unstructured data in-place. It addresses the problems of records management, electronic discovery, compliance, storage optimization, and data migration initiatives. 
+Data is growing exponentially. With this growth of data, organizations find it difficult to manage this effectively. This growth in data has also contributed to new challenges like security, governing and protecting privacy. IBM StoredIQ platform provides powerful solutions for managing unstructured data in-place. It addresses the problems of records management, electronic discovery, compliance, storage optimization, and data migration initiatives. 
 
-Organizations have freedom to choose data sources for their need. It may involve multiple data sources with different versions. A data source can be considered as a location which contains unstructured content. By providing an in-depth assessment of unstructured data where it is, the StoredIQ gives organizations visibility into data to make more informed business and legal decisions. Data Source is an important part for IBM Stored IQ solution. Stored IQ provides flexibility to customers to choose data source and it supports 85+ data sources out of the box. Some of the data sources include Box, Microsoft Office 365, FileNet etc. All the features of IBM StoredIQ can be utilized by making a connection between a data source and StoredIQ. The connection between a data source and StoredIQ is established using a connector.  
+Organizations have freedom to choose data sources for their need. It may involve multiple data sources with different versions. A data source can be considered as a location which contains unstructured content. By providing an in-depth assessment of unstructured data where it is, the StoredIQ gives organizations visibility into data to make more informed business and legal decisions. Data Source is an important part for IBM StoredIQ solution. StoredIQ provides flexibility to customers to choose data source and it supports 85+ data sources out of the box. Some of the data sources include Box, Microsoft Office 365, FileNet etc. All the features of IBM StoredIQ can be utilized by making a connection between a data source and StoredIQ. The connection between a data source and StoredIQ is established using a connector.  
 
-The recent release of IBM StoredIQ added a Connector API SDK which can be used by business partners and customers to create custom connector for new data sources which StoredIQ does not support. The IBM StoredIQ Connecter API SDK simplifies connector development by decoupling connector logic from the StoredIQ application logic. It can also be used to customise and extend existing connector. Once you create a new connector, you can use it to manage data in Stored IQ just like you do it with the supported data sources.
+The recent release of IBM StoredIQ added a Connector API SDK which can be used by business partners and customers to create custom connector for new data sources which StoredIQ does not support. The IBM StoredIQ Connecter API SDK simplifies connector development by decoupling connector logic from the StoredIQ application logic. It can also be used to customise and extend existing connector. Once you create a new connector, you can use it to manage data in StoredIQ just like you do it with the supported data sources.
 
 This code pattern helps you to understand the methodology and the steps of building a connector of a new data source. In this pattern, we explain the steps for developing a connector for SVN server data source. When the user has completed this code pattern, they will understand how to develop, integrate, register and test the connector for IBM StoredIQ.
 
@@ -13,7 +13,7 @@ This code pattern helps you to understand the methodology and the steps of build
 
 ## Included Components
 
-* [IBM StoredIQ](https://www.ibm.com/support/knowledgecenter/en/SSSHEC_7.6.0/overview/overview.html)
+* [IBM StoredIQ](https://www.ibm.com/support/knowledgecenter/en/SSSHEC_7.6.0/overview/overview.html): IBM StoredIQ Platform provides scalable analysis and governance of unstructured data in-place across disparate and distributed email, file shares, desktops, and collaboration sites.
 
 * [SVN Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Subversion is a version control system that keeps track of changes made to files and folders or directories, thus facilitating data recovery and providing a history of the changes that have been made over time.
 
@@ -42,6 +42,7 @@ All operations that are run by IBM StoredIQ application on data objects are cate
   APIs in this group manage custom attributes. The standard attributes of a data object collected by Stored IQ by default includes size, access times etc.
   
 * **Content access management**
+
   APIs in this group manage the content that is retrieved from the data objects like open file, read file and so on.
 
 To develop a connector, need to implement these APIs.
@@ -54,10 +55,10 @@ To develop a connector, need to implement these APIs.
 
 Follow these steps to run this code pattern. 
 
-1. [Develop the IBM StoredIQ Connector]()
-2. [Integrate the connector with live IBM StoredIQ]()
-3. [Register the Connector with live IBM StoredIQ]()
-4. [Test the Connector by adding new volume for svn connector]()
+1. [Develop the IBM StoredIQ Connector](#1-develop-the-ibm-storediq-connector)
+2. [Integrate the Connector with live IBM StoredIQ](#2-integrate-the-connector-with-live-ibm-storediq)
+3. [Register the Connector with live IBM StoredIQ](#3-register-the-connector-with-live-ibm-storediq)
+4. [Test the Connector](#4-test-the-connector)
 
 
 
@@ -76,7 +77,7 @@ Now `svn_connector` contains following python modules:
 
 * **`__init__.py`**
 
-  It is as per the python convention to treat the directory as containing package.
+  It is as per the python convention to treat the directory as a python package.
   
 * **sdk_version.py**
 
@@ -97,13 +98,13 @@ Now `svn_connector` contains following python modules:
   
   High level flow of code for svn connector can be explained as follows.
   
-  * *connect()* uses the information provided by constructor method to establish connection with the server that hosts the data source. The constructor method provides information that is collected by using the `Add Volume UI` dialog (explained in Test section).
+  * *connect()* uses the information provided by constructor method to establish connection with the server that hosts the data source. The constructor method provides information that is collected by using the `Add Volume` dialog as explained in [Test section](#4-test-the-connector).
   
   * *Create mount point*. It checks if the path for mount point exists, else it creates the path and bind that path for a local checkout.
   
-  * *validate_directories()* creates new initial directory with the same name as of svn repository/directory which we want to checkout. This name will be given by user from storedIQ interface. [Need to confirm??]
+  * *validate_directories()* creates new initial directory with the same name as of svn repository/directory which we want to checkout. This name will be given by user from StoredIQ dashboard. [Need to confirm??]
   
-  * *checkout* all the files from a specific repository of svn server to <local server??>. To achieve this for svn data source, `pysvn.Client.checkout()` is used from pysvn package. After checkout, mount all these files to the mount point created earlier.
+  * *checkout* all the files from a specific repository of svn server to <local/data server??>. To perform data operations with svn server `pysvn` package is used and `pysvn.Client.checkout()` is used to checkout from svn data source. After checkout, mount all these files to the mount point created earlier.
   
   * *list_dir()* lists the files and sub-directories in the specified repository. This method gets called when we harvest the newly added volume in StoredIQ. The firt time call of list_dir(), internally calls checkout function.
   
@@ -111,7 +112,7 @@ Now `svn_connector` contains following python modules:
   
   > Note: This pattern provides you code only for read capability of svn connector. 
 
-### 2. Integrate the connector with live IBM StoredIQ
+### 2. Integrate the Connector with live IBM StoredIQ
 
 To integrate the connector with live Stored IQ, need to copy the directory that contains the Connector code i.e. `svn_connector` directory in each Data Server and Gateway. The command to execute on your development system will be :
 
@@ -156,19 +157,25 @@ To register the connector, perform the following steps on each Data Server and G
    
    Before proceeding to next step, wait till both the servers come up.
 
-### 4. Test the Connector by adding new volume for svn connector
+### 4. Test the Connector
 
 * Access the StoredIQ dashboard. If the connector is successfully integrated with StoredIQ, it will be visible as a new source type at StoredIQ dashboard.
 
+  ```
+  StoredIQ Administrator Dashboard > Volumes > Add Volume > Source Type
+  ```
+  
   ![image2](images/img2.png)
 
-* Now we can select our connector as source type and fill other details in dashboard as shown.
+* Now we can select our connector `tsvn-template` as source type and fill other details in dashboard as shown.
   * Server name – It is domain name or IP address of svn server.
   * Username – It is required to authenticate user to remote svn server.
   * Password – It is password of svn server required to authenticate user to remote svn server.
   * Volume name – This will be the name of our newly added volume. It could be any name.
-  * Initial Directory – It will be name of any directory from where we will start checkout.
+  * Initial Directory – It will be name of any directory where checked-out content will be placed.
   * Class name – This will be the class path name as discussed earlier.
+  
+  Click on `Save` to add this volume.
   
   ![image3](images/img3.png)
  
@@ -176,23 +183,29 @@ To register the connector, perform the following steps on each Data Server and G
 
   ![image4](images/img4.png)
 
-* Now harvest can be run on newly added volume to see the content of svn server in StoredIQ dashboard. To do that select the newly added volume from the list of volumes and click on the harvest. Further it will ask for harvest name which could be anything and will give few options to select such as immediate or schedule harvest and full or incremental harvest as shown in image.
+* Now harvest can be run on newly added volume to see the content of svn server in StoredIQ dashboard. To do that select the newly added volume `Test_svn` from the list of volumes and click on `Harvest`. Further it will ask for harvest name which could be anything and will give few options to select such as immediate or schedule harvest and full or incremental harvest as shown in image. Choose the appropriate option and click on `Save`.
 
   ![image5](images/img5.png)
 
-* Once the harvest is complete, the details of newly added volume will get updated and will show number of data objects added and total data objects size.
+* Once the harvest is completed, the details of newly added volume will get updated and will show number of data objects added and total data objects size.
 
   ![image6](images/img6.png)
 
-* Create Infoset to see the content of svn server in StoredIQ dashboard and to read the content of files. To do that go to system infosets create new infoset. Give the details required and select newly added volumes from available volumes and click add and finally save.
+* Now need to create Infoset to see the content of svn server in StoredIQ dashboard and to read the content of files. Go to 
+
+  ```
+  StoredIQ Administrator Dashboard > System Infosets > Create Infoset
+  ```
+  
+  Give the required details and select newly added volumes from available volumes. Click `Add` and then `Save`.
 
   ![image7](images/img7.png)
 
-* After creating the infoset go to data workbench from the StoredIQ dashboard.
+* After creating the infoset, go to Data Workbench from the StoredIQ dashboard.
 
   ![image8](images/img8.png)
 
-* Data workbench will show list of infoset status and state. Select the infoset added in previous step from the list.
+* Data Workbench will show list of infoset status and state. Select the infoset added in previous step from the list.
 
   ![image9](images/img9.png)
 
