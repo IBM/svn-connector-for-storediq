@@ -85,7 +85,7 @@ Now `svn_connector` contains following python modules:
   
 * **sample_attributes.py**
 
-  Change the name of the data source in sample_attributes.py. Here we are giving data source name as `tsvn-template`.
+  Change the name of the data source in `sample_attributes.py`. Here we are giving data source name as `tsvn-template`.
   
   ![image1](images/img1.png)
 
@@ -94,7 +94,7 @@ Now `svn_connector` contains following python modules:
 * **sample_conn.py**
 
   Rename this file as `svn_conn.py`. The actual code for svn data source connector is written in the `svn_conn.py` module. The
-  svn_conn.py will be containing APIs to connect and traverse through data sources. As mentioned in [Methodology](#methodology), need to add code for all four categories. 
+  `svn_conn.py` will be containing APIs to connect and traverse through data sources. As mentioned in [Methodology](#methodology), need to add code for all four categories. 
   
   High level flow of code for svn connector can be explained as follows.
   
@@ -104,9 +104,9 @@ Now `svn_connector` contains following python modules:
   
   * *validate_directories()* creates new initial directory with the same name as of svn repository/directory which we want to checkout. This name will be given by user from StoredIQ dashboard. [Need to confirm??]
   
-  * *checkout* all the files from a specific repository of svn server to <local/data server??>. To perform data operations with svn server `pysvn` package is used and `pysvn.Client.checkout()` is used to checkout from svn data source. After checkout, mount all these files to the mount point created earlier.
+  * *checkout* all the files from a specific repository of svn server to `<local/data server??>`. To perform data operations with svn server `pysvn` package is used and `pysvn.Client.checkout()` is used to checkout from svn data source. After checkout, mount all these files to the mount point created earlier.
   
-  * *list_dir()* lists the files and sub-directories in the specified repository. This method gets called when we harvest the newly added volume in StoredIQ. The firt time call of list_dir(), internally calls checkout function.
+  * *list_dir()* lists the files and sub-directories in the specified repository. This method gets called when we harvest the newly added volume in StoredIQ. The firt time call of `list_dir()`, internally calls checkout function.
   
   * *lstat()* gets called if a directory is chosen to list the files. This method retrieves the file system-specific attributes like size, timestamp etc. for the specified file.
   
@@ -123,7 +123,7 @@ To integrate the connector with live Stored IQ, need to copy the directory that 
  # for Gateway
  scp –rp svn_connector root@<IP address of Gateway>:/usr/lib/python2.6/site-packages
 ```
-> If development system is windows, then copy operation can be done using winscp.
+> If development system is Windows, then copy operation can be done using winscp.
 
 ### 3. Register the Connector with live IBM StoredIQ
 
@@ -139,15 +139,15 @@ To register the connector, perform the following steps on each Data Server and G
 
    python32 /usr/loca/storediq/bin/register_connector.py -c <classpath> [-w ’yes’ | ’no’]
  
-   For example, if your Connector folder is my_connector, class name is MyConnector and the module that defines the class is my_module, then class-path is'my_connector.my_module.MyConnector' (quotes included).
+   For example, if your Connector folder is `my_connector`, class name is `MyConnector` and the module that defines the class is `my_module`, then class-path is 'my_connector.my_module.MyConnector' (quotes included).
    
-   For the -w option, if it is specified, it indicates that the Connector is a read-write Connector.
+   For the `-w` option, if it is specified, it indicates that the Connector is a read-write Connector.
    
    ```
    python32 /usr/local/storediq/bin/register_connector.py -c svn_connector.svn_conn.SvnConnector
    ```
 
-   > Run the command python32 /usr/loca/storediq/bin/register_connector.py -h for more information.
+   > Run the command python32 `/usr/loca/storediq/bin/register_connector.py -h` for more information.
    
 3. Restart services on the Data Server and Gateway. Use the following command to restart.
   
