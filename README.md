@@ -11,7 +11,12 @@ This code pattern helps you to understand the methodology and the steps of build
 
 ## Flow
 
-![architecture](images/architecture.png)
+  ![architecture](images/architecture.png)
+  
+  1. Develop the connector for data source using Connector SDK.
+  2. Integrate and Register the connector with StoredIQ Data Server and Gateway Server.
+  3. Add volume for the new connector using Administrator Dashboard of StoredIQ, harvest it and create infoset.
+  4. Content of the data source can be seen at Data Workbench dashboard.
 
 
 ## Included Components
@@ -65,7 +70,7 @@ Follow these steps to run this code pattern.
 
 ### 1. Develop the IBM StoredIQ Connector 
 
-In this pattern, the connector for svn data source is developed already and code is provided under `svn_connector` in the repository. To start with, clone the repository.
+In this pattern, the connector for svn data source is developed and code is provided under `svn_connector` in the repository. To start with, clone the repository.
 
 ```
  git clone  https://github.com/IBM/svn-connector-for-storediq.git
