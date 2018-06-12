@@ -11,6 +11,9 @@ This code pattern helps you to understand the methodology and the steps of build
 
 ## Flow
 
+![architecture](images/architecture.png)
+
+
 ## Included Components
 
 * [IBM StoredIQ](https://www.ibm.com/support/knowledgecenter/en/SSSHEC_7.6.0/overview/overview.html): IBM StoredIQ Platform provides scalable analysis and governance of unstructured data in-place across disparate and distributed email, file shares, desktops, and collaboration sites.
@@ -61,6 +64,16 @@ Follow these steps to run this code pattern.
 4. [Test the Connector](#4-test-the-connector)
 
 ### 1. Develop the IBM StoredIQ Connector 
+
+In this pattern, the connector for svn data source is developed already and code is provided under `svn_connector` in the repository. To start with, clone the repository.
+
+```
+ git clone  https://github.com/IBM/svn-connector-for-storediq.git
+```
+
+If you want to know the steps to develop the connector, read the details provided below. Otherwise move to [Step 2](#2-integrate-the-connector-with-live-ibm-storediq).
+
+**Steps to develop the connector**
 
 Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here]().
 
