@@ -65,7 +65,7 @@ Set up the data source as per the requirement.
 
 * [SVN Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Setup SVN server.
 
-* [FTP Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Setup FTP server.
+* [FTP Server](https://www.wikihow.com/Set-up-an-FTP-Server-in-Ubuntu-Linux): Setup FTP server.
 
 ## Steps
 
@@ -78,7 +78,7 @@ Follow these steps to run this code pattern.
 
 ### 1. Develop the IBM StoredIQ Connector 
 
-In this pattern, the connector is developed for `svn` and `ftp` data source. The code for svn data source is provided in  `svn_connector` in the repository and in `ftp_connector` for ftp data source. To start with, clone the repository.
+In this pattern, the connector is developed for `svn` and `ftp` data source. The code for svn data source is provided in  `svn_connector` and for ftp data source, the code is available at `ftp_connector` in the repository. To start with, clone the repository.
 
 ```
  git clone  https://github.com/IBM/connector-for-storediq.git
@@ -88,7 +88,7 @@ If you want to know the steps to develop the connector, read the details provide
 
 **Steps to develop the connector**
 
-> Here examples and snapshot are given for `svn connector`. Need to replicate the same for ftp and any other data source connector.
+> Here examples, code-snippets and snapshots are shown for `svn connector`. Need to replicate the same for ftp and any other data source connector.
 
 Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here](doc/IBM_StoredIQ_Connector_API_SDK.pdf).
 
@@ -130,13 +130,13 @@ Now `svn_connector` contains following python modules:
   
   * *validate_directories()* creates a new directory (if does not exist) with the same name as of `Initial Directory` value given by user from StoredIQ dashboard as explained in [Test section](#4-test-the-connector). The checked-out content will be placed here.
   
-  * *checkout* all the content from a specific repository of svn server to StoredIQ Data Server. To perform data operations with svn server `pysvn` package is used and `pysvn.Client.checkout()` is used to checkout from svn data source. After checkout, mount all these files to the mount point created earlier.
+  * *checkout* all the content from a specific repository of the data source to StoredIQ Data Server. To perform data operations with svn server `pysvn` package is used and `pysvn.Client.checkout()` is used to checkout from svn data source. After checkout, mount all these files to the mount point created earlier.
   
   * *list_dir()* lists the files and sub-directories in the specified repository. This method gets called when we harvest the newly added volume in StoredIQ. The firt time call of `list_dir()`, internally calls checkout function.
   
   * *lstat()* gets called if a directory is chosen to list the files. This method retrieves the file system-specific attributes like size, timestamp etc. for the specified file.
   
-  > **Note:** This pattern provides you code only for read capability of svn connector. It can be extended further to add write and delete capability. 
+  > **Note:** This pattern provides you code only for read capability of svn and ftp connector. It can be extended further to add write and delete capability. 
 
 ### 2. Integrate the Connector with live IBM StoredIQ
 
@@ -149,9 +149,9 @@ To integrate the connector with live Stored IQ, need to copy the directory that 
  # for Gateway
  scp –rp svn_connector root@<IP address of Gateway>:/usr/lib/python2.6/site-packages
 ```
-> If development system is Windows, then copy operation can be done using `winscp`.
-
-> If you are doing for ftp connector, please copy `ftp_connector` directory in servers.
+> **Note:** 
+> 1. If development system is Windows, then copy operation can be done using `winscp`.
+> 2. If you are performing the steps for ftp connector, need to copy `ftp_connector` directory in servers.
 
 ### 3. Register the Connector with live IBM StoredIQ
 
@@ -193,7 +193,7 @@ To register the connector, perform the following steps on each Data Server and G
 
 * Access the StoredIQ dashboard. If the connector is successfully integrated with StoredIQ, it will be visible as a new source type at StoredIQ dashboard.
 
-> Here snapshots are shown for svn connector. Instructions are same for ftp connector.
+> Here snapshots are shown for svn connector. Need to perform the similiar instructions for ftp connector.
 
   ```
   StoredIQ Administrator Dashboard > Volumes > Add Volume > Source Type
