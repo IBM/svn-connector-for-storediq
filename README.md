@@ -1,13 +1,13 @@
 ## ** work in progress **
-# Enhance IBM StoredIQ capabilities with new data sources using Connector API SDK 
+# Adding new data sources to IBM StoredIQ using Connector API SDK 
 
-Data is growing exponentially. With this growth of data, organizations find it difficult to manage this effectively. This growth in data has also contributed to new challenges like security, governing and protecting privacy. IBM StoredIQ platform provides powerful solutions for managing unstructured data in-place. It addresses the problems of records management, electronic discovery, compliance, storage optimization, and data migration initiatives. 
+Data is growing exponentially. With this growth of data, organizations find it difficult to make business value out of this data effectively. This growth in data has also contributed to new challenges like security, governing and protecting privacy. IBM StoredIQ platform provides powerful solutions for managing unstructured data in-place. It addresses the problems of records management, electronic discovery, compliance, storage optimization, and data migration initiatives. 
 
 Organizations have freedom to choose data sources for their need. It may involve multiple data sources with different versions. A data source can be considered as a location which contains unstructured content. By providing an in-depth assessment of unstructured data where it is, the StoredIQ gives organizations visibility into data to make more informed business and legal decisions. Data Source is an important part for IBM StoredIQ solution. StoredIQ provides flexibility to customers to choose data source and it supports 85+ data sources out of the box. Some of the data sources include Box, Microsoft Office 365, FileNet etc. All the features of IBM StoredIQ can be utilized by making a connection between a data source and StoredIQ. The connection between a data source and StoredIQ is established using a connector.  
 
 IBM StoredIQ provides a Connector API SDK which can be used by business partners and customers to create custom connector for new data sources which StoredIQ does not support. The IBM StoredIQ Connecter API SDK simplifies connector development by decoupling connector logic from the StoredIQ application logic. It can also be used to customise and extend existing connector. Once you create a new connector, you can use it to manage data in StoredIQ just like you do it with the supported data sources.
 
-This code pattern helps you to understand the methodology and the steps of building a connector of a new data source. In this pattern, we explain the steps for developing a connector for SVN server data source. When the user has completed this code pattern, they will understand how to develop, integrate, register and test the connector for IBM StoredIQ.
+This code pattern helps you to understand the methodology and the steps of building a connector of a new data source. In this pattern, we provide connector code for `SVN server` and `FTP server` data source. When the user has completed this code pattern, they will understand how to develop, integrate, register and test the connector for IBM StoredIQ.
 
 ## Flow
 
@@ -25,9 +25,13 @@ This code pattern helps you to understand the methodology and the steps of build
 
 * [SVN Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Subversion is a version control system that keeps track of changes made to files and folders or directories, thus facilitating data recovery and providing a history of the changes that have been made over time.
 
+* [FTP Server](https://en.wikipedia.org/wiki/File_Transfer_Protocol): An FTP server is a computer which has a file transfer protocol (FTP) address and is dedicated to receiving an FTP connection. The FTP is a standard network protocol used for the transfer of computer files between a client and server on a computer network.
+
 ## Featured Technologies
 
 * [Python](https://www.python.org/): Python is a programming language that lets you work quickly and integrate systems more effectively.
+
+* [IBM StoredIQ Connector API SDK](doc/IBM_StoredIQ_Connector_API_SDK.pdf): Using IBM StoredIQ Connector API SDK, developers can develop Connectors to new data sources outside IBM StoredIQ development environment. 
 
 ## Watch the Video
 
@@ -57,7 +61,11 @@ To develop a connector, need to implement these APIs.
 
 ## Pre-requisites
 
+Set up the data source as per the requirement.
+
 * [SVN Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Setup SVN server.
+
+* [FTP Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Setup FTP server.
 
 ## Steps
 
@@ -70,17 +78,19 @@ Follow these steps to run this code pattern.
 
 ### 1. Develop the IBM StoredIQ Connector 
 
-In this pattern, the connector for svn data source is developed and code is provided under `svn_connector` in the repository. To start with, clone the repository.
+In this pattern, the connector is developed for `svn` and `ftp` data source. The code for svn data source is provided in  `svn_connector` in the repository and in `ftp_connector` for ftp data source. To start with, clone the repository.
 
 ```
- git clone  https://github.com/IBM/svn-connector-for-storediq.git
+ git clone  https://github.com/IBM/connector-for-storediq.git
 ```
 
 If you want to know the steps to develop the connector, read the details provided below. Otherwise move to [Step 2](#2-integrate-the-connector-with-live-ibm-storediq).
 
 **Steps to develop the connector**
 
-Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here]().
+> Here examples and snapshot are given for `svn connector`. Need to replicate the same for ftp and any other data source connector.
+
+Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here](doc/IBM_StoredIQ_Connector_API_SDK.pdf).
 
 The connector API SDK also includes code that implements a fully working NFS based sample connector. This sample connector is also preinstalled at `/usr/lib/python2.6/site-packages/sample_connector` folder. To make development of a new data source connector simpler, we have chosen this `sample_connector` as a base code. We will copy this folder as a new connector folder. In this pattern, we have given name as `svn_connector`.
 
@@ -141,6 +151,8 @@ To integrate the connector with live Stored IQ, need to copy the directory that 
 ```
 > If development system is Windows, then copy operation can be done using `winscp`.
 
+> If you are doing for ftp connector, please copy `ftp_connector` directory in servers.
+
 ### 3. Register the Connector with live IBM StoredIQ
 
 To register the connector, perform the following steps on each Data Server and Gateway.
@@ -160,7 +172,11 @@ To register the connector, perform the following steps on each Data Server and G
    For the `-w` option, if it is specified, it indicates that the Connector is a read-write Connector.
    
    ```
+   # For SVN data source connector
    python32 /usr/local/storediq/bin/register_connector.py -c svn_connector.svn_conn.SvnConnector
+   
+   # For FTP data source connector
+   python32 /usr/local/storediq/bin/register_connector.py -c ftp_connector.ftp_conn.FtpConnector
    ```
 
    > Run the command `python32 /usr/loca/storediq/bin/register_connector.py -h` for more information.
@@ -176,6 +192,8 @@ To register the connector, perform the following steps on each Data Server and G
 ### 4. Test the Connector
 
 * Access the StoredIQ dashboard. If the connector is successfully integrated with StoredIQ, it will be visible as a new source type at StoredIQ dashboard.
+
+> Here snapshots are shown for svn connector. Instructions are same for ftp connector.
 
   ```
   StoredIQ Administrator Dashboard > Volumes > Add Volume > Source Type
