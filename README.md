@@ -7,7 +7,7 @@ Organizations have freedom to choose data sources for their need. It may involve
 
 IBM StoredIQ provides a Connector API SDK which can be used by business partners and customers to create custom connector for new data sources which StoredIQ does not support. The IBM StoredIQ Connecter API SDK simplifies connector development by decoupling connector logic from the StoredIQ application logic. It can also be used to customise and extend existing connector. Once you create a new connector, you can use it to manage data in StoredIQ just like you do it with the supported data sources.
 
-This code pattern helps you to understand the methodology and the steps of building a connector of a new data source. In this pattern, we provide connector code for `SVN server` and `FTP server` data source. When the user has completed this code pattern, they will understand how to develop, integrate, register and test the connector for IBM StoredIQ.
+This code pattern helps you to understand the methodology and the steps of building a connector of a new data source. In this pattern, we explain the different aspects of connector development with [code](source) for SVN server and FTP server. When the user has completed this code pattern, they will understand how to develop, integrate, register and test the connector for IBM StoredIQ.
 
 ## Flow
 
@@ -84,7 +84,7 @@ If you want to know the steps to develop the connector, read the details provide
 
 **Steps to develop the connector**
 
-> Here examples, code-snippets and snapshots are shown for `svn connector`. Need to replicate the same for ftp and any other data source connector.
+> Here examples, code-snippets and snapshots are shown for `svn connector`. The steps for `ftp connector` are the same. Please see the folder `ftp_connector` for details.
 
 Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here](doc/IBM_StoredIQ_Connector_API_SDK.pdf).
 
