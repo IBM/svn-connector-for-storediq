@@ -109,7 +109,7 @@ Now `svn_connector` contains following python modules:
 
   Change the name of the data source in `sample_attributes.py`. Here we are giving data source name as `tsvn-template`.
   
-  ![image1](images/img1.png)
+  ![image](images/image.png)
 
   > Note: fs_name could be anything.
   
@@ -195,7 +195,7 @@ To register the connector, perform the following steps on each Data Server and G
   StoredIQ Administrator Dashboard > Volumes > Add Volume > Source Type
   ```
   
-  ![image2](images/img2.png)
+  ![image1](images/image1.png)
 
 * Now we can select our connector `tsvn-template` as source type and fill other details in dashboard as shown.
   * Server name – It is domain name or IP address of svn server.
@@ -207,19 +207,19 @@ To register the connector, perform the following steps on each Data Server and G
   
   Click on `Save` to add this volume.
   
-  ![image3](images/img3.png)
+  ![image2](images/image2.png)
  
 * Once the volume is added successfully, it will be available in list of volume in dashboard.
 
-  ![image4](images/img4.png)
+  ![image3](images/image3.png)
 
 * Now harvest can be run on newly added volume to see the content of svn server in StoredIQ dashboard. To do that select the newly added volume `Test_svn` from the list of volumes and click on `Harvest`. Further it will ask for harvest name which could be anything and will give few options to select such as immediate or schedule harvest and full or incremental harvest as shown in image. Choose the appropriate option and click on `Save`.
 
-  ![image5](images/img5.png)
+  ![image4](images/image4.png)
 
 * Once the harvest is completed, the details of newly added volume will get updated and will show number of data objects added and total data objects size.
 
-  ![image6](images/img6.png)
+  ![image5](images/image5.png)
 
 * Now need to create Infoset to see the content of svn server in StoredIQ dashboard and to read the content of files. Go to 
 
@@ -229,19 +229,19 @@ To register the connector, perform the following steps on each Data Server and G
   
   Give the required details and select newly added volumes from available volumes. Click `Add` and then `Save`.
 
-  ![image7](images/img7.png)
+  ![image6](images/image6.png)
 
 * After creating the infoset, go to Data Workbench from the StoredIQ dashboard.
 
-  ![image8](images/img8.png)
+  ![image7](images/image7.png)
 
 * Data Workbench will show list of infoset status and state. Select the infoset added in previous step from the list.
 
-  ![image9](images/img9.png)
+  ![image8](images/image8.png)
 
 * Once infoset is selected, all the contents of your svn server would be visible and content of file can be seen by clicking file name.
 
-  ![image10](images/img10.png)
+  ![image9](images/image9.png)
   
 Using this methodology, a connector can be built for any new data source with IBM StoredIQ.
 
