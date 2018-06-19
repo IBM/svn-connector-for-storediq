@@ -33,10 +33,6 @@ This code pattern helps you to understand the methodology and the steps of build
 
 * [IBM StoredIQ Connector API SDK](doc/IBM_StoredIQ_Connector_API_SDK.pdf): Using IBM StoredIQ Connector API SDK, developers can develop Connectors to new data sources outside IBM StoredIQ development environment. 
 
-## Watch the Video
-
-TBD
-
 ## Methodology
 
 All operations that are run by IBM StoredIQ application on data objects are categorized as the following APIs:
