@@ -73,7 +73,7 @@ class Handle(object):
     def setOsHandle(self, handle):
         self.os_handle = handle
 
-class TSvnConnector(TemplateConnection):
+class SvnConnector(TemplateConnection):
     # Enable for local logging. Use appropriate log file path
     _mylogger = logging.getLogger("SvnConnector")
     _mylogger.setLevel(logging.DEBUG)
