@@ -161,7 +161,7 @@ To register the connector, perform the following steps on each Data Server and G
   
 2. Run the following command.
 
-   python32 /usr/loca/storediq/bin/register_connector.py -c <classpath> [-w ’yes’ | ’no’]
+   python32 /usr/loca/storediq/bin/register_connector.py -c < classpath > [-w ’yes’ | ’no’]
  
    For example, if your Connector folder is `my_connector`, class name is `MyConnector` and the module that defines the class is `my_module`, then class-path will be `my_connector.my_module.MyConnector` (quotes included).
    
