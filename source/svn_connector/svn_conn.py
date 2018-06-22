@@ -126,7 +126,7 @@ class SvnConnector(TemplateConnection):
         # self._mylogger.info("SvnConnector.__init__(): _mp=%s" % (str(self._mp)))
 
         # Default parameters set to not require a valid server certificate.
-        # TODO: Certificate verification for NFS mount (NFS over SSH tunnel?)
+
 
 
     # ------------------------------------------------------------------------
@@ -135,7 +135,7 @@ class SvnConnector(TemplateConnection):
         '''
         Return array of custom attributes to be registered with StoredIQ later
         '''
-        import tsvn_connector.sample_attributes as attr
+        import svn_connector.sample_attributes as attr
         return attr.attributes
 
     # ------------------------------------------------------------------------
@@ -144,7 +144,7 @@ class SvnConnector(TemplateConnection):
         '''
         Provide the name of this connector to StoredIQ File Manager
         '''
-        from tsvn_connector.sample_attributes import fs_name
+        from svn_connector.sample_attributes import fs_name
         return fs_name
 
     # ------------------------------------------------------------------------
@@ -295,7 +295,6 @@ class SvnConnector(TemplateConnection):
         #self._mylogger.info('SvnConnector.checkout_mount(): CheckOUT Complete')
         
         # Build mount command w/ arguments
-        # mount --bind afiz /deepfs/imports/template/svn
         cmd = "/bin/mount --bind {0} {1}".format(mount_point, self._fqn(self._mp))
         errorcode, output = commands.getstatusoutput(cmd )
         self._mylogger.info('SvnConnector.checkout_mount(): cmd=%s, status=%s' % ( cmd, str(errorcode)))
