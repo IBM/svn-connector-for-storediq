@@ -382,7 +382,7 @@ class SvnConnector(TemplateConnection):
         self._mylogger.info("SvnConnector.lstat(): path=%s, extras=%s" % (path, str(extras)))
         try:
             return tuple(os.lstat(self._fqn(path)))
-        except Exception, e:
+        except Exception as e:
             self._mylogger.info("SvnConnector.lstat(): Exception, %s on path=%s" % (e, path))
             raise IOError(e)
 
@@ -410,7 +410,7 @@ class SvnConnector(TemplateConnection):
         #self._mylogger.info('SvnConnector.create_file(): path=%s, size=%s, map=%s' % (path, str(size), str(attrMap)))
         try:
             fileHandle.setOsHandle(os.open(self._fqn(path), os.O_RDWR|os.O_CREAT))
-        except Exception, e:
+        except Exception as e:
             raise IOError(e)
 
         return fileHandle
@@ -424,7 +424,7 @@ class SvnConnector(TemplateConnection):
         try:
             self.lstat(requestPath)
             return True
-        except Exception, e:
+        except Exception as e:
             return False
 
     # ------------------------------------------------------------------------
@@ -435,7 +435,7 @@ class SvnConnector(TemplateConnection):
         #self._mylogger.info("SvnConnector._truncateFile(): path=%s" % path)
         try:
            return os.open(self._fqn(path), os.O_RDWR|os.O_TRUNC)
-        except Exception, e:
+        except Exception as e:
             #self._mylogger.info("SvnConnector._truncateFile(): Exception, %s on path=%s" % (e, path))
             raise IOError(e)
 
@@ -464,7 +464,7 @@ class SvnConnector(TemplateConnection):
                 try:
                     fileHandle.setOsHandle(os.open(self._fqn(path), os.O_RDONLY))
                     #self._mylogger.info("SvnConnector.open_file: The file, %s opened successfully." % (path))
-                except Exception, e:
+                except Exception as e:
                     #self._mylogger.info("SvnConnector.open_file: Error %s opening %s." % (e, path))
                     raise IOError(e)
         elif mode==TemplateConnection.FILE_WRITE:
@@ -472,13 +472,13 @@ class SvnConnector(TemplateConnection):
                 #self._mylogger.info("SvnConnector.open_file: File '%s' doesn't exist, create it." % (path))
                 try:
                     fileHandle.setOsHandle(os.open(self._fqn(path), os.O_RDWR|os.O_CREAT))
-                except Exception, e:
+                except Exception as e:
                     raise IOError(e)
             else:
                 #self._mylogger.info("SvnConnector.open_file: File '%s' exists, truncate it." % (path))
                 try:
                     fileHandle.setOsHandle(self._truncateFile(path))
-                except Exception, e:
+                except Exception as e:
                     raise IOError(e)
         else:
             #self._mylogger.info("SvnConnector.open_file:Open mode %s is not supported." % (mode))
@@ -508,7 +508,7 @@ class SvnConnector(TemplateConnection):
         
         try:
             w = os.write(fileHandle.getOsHandle(), filebuf)
-        except Exception, e:
+        except Exception as e:
             raise IOError("SvnConnector.write_file: Error %s on '%s'." % (e, path))
 
         # TODO: Should short writes be reported?
@@ -539,7 +539,7 @@ class SvnConnector(TemplateConnection):
             raise IOError("SvnConnector.read_file: File %s, not open." % (path))
         try:
             buf = os.read(fileHandle.getOsHandle(), readSize)
-        except Exception, e:
+        except Exception as e:
             raise IOError("SvnConnector.read_file: Error %s on '%s'." % (e, path))
 
         return buf
@@ -560,7 +560,7 @@ class SvnConnector(TemplateConnection):
         try:
             buf = os.close(fileHandle.getOsHandle())
             fileHandle.setOsHandle(None)
-        except Exception, e:
+        except Exception as e:
             raise IOError("SvnConnector.close: Error %s." % (e))
         return {}
 
@@ -588,7 +588,7 @@ class SvnConnector(TemplateConnection):
         #self._mylogger.info('SvnConnector.setTimestamps path: >%s< '  % (path))
         try:
             os.utime(self._fqn(path), (mtime, atime))
-        except Exception, e:
+        except Exception as e:
             raise IOError("SvnConnector.setTimestamps: Error's'" % (e))
 
         return True
@@ -602,7 +602,7 @@ class SvnConnector(TemplateConnection):
         #self._mylogger.info('SvnConnector.makedirs():  path->%s< ' % (path))
         try:
             os.makedirs(self._fqn(path))
-        except Exception, e:
+        except Exception as e:
             raise IOError("SvnConnector.makedirs: Error %s." % (e))
 
         return True
@@ -618,7 +618,7 @@ class SvnConnector(TemplateConnection):
             if not path.startswith('/'):
                 p = self._fqn(path)
             os.rmdir(p)
-        except Exception, e:
+        except Exception as e:
             raise IOError("SvnConnector.rmdir: Error %s." % (e))
         return True
 
@@ -633,7 +633,7 @@ class SvnConnector(TemplateConnection):
             if not path.startswith('/'):
                 p = self._fqn(path)
             os.unlink(p)
-        except Exception, e:
+        except Exception as e:
             #self._mylogger.info("SvnConnector.unlink(): Exception, %s on path=%s" % (e, path))
             raise IOError("SvnConnector.unlink: Error %s." % (e))
         return True
@@ -714,7 +714,7 @@ class SvnConnector(TemplateConnection):
         #self._mylogger.info('SvnConnector.verify_mount(): path=%s, includeDirs=%s' % (path, includeDirs))
         try:
             readable = self.is_dir(path)
-        except Exception, err:
+        except Exception as err:
             #self._mylogger.info("SvnConnector.verify_mount(): %s failed checking path. (%s)" % (path, err))
             errlist.append(str(err))
             verified = False
@@ -722,11 +722,11 @@ class SvnConnector(TemplateConnection):
         try:
             writeErrlist, writable, deleted = self._verify_write(path)
             errlist.extend(writeErrlist)           
-        except Exception, err:
+        except Exception as err:
             #self._mylogger.info("SvnConnector.verify_mount(): %s failed verifying write. (%s)" % (path, err))
             errlist.append(str(err))
             
         return (verified, errlist, readable, writable)
 
 if __name__ == '__main__':
-    print 'sample_conn.main(): started'
+    print('sample_conn.main(): started')
