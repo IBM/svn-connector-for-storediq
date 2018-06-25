@@ -293,7 +293,7 @@ class FtpConnector(TemplateConnection):
                 os.makedirs(dirname)
                 print("created {0}".format(dirname))
             except Exception as e:
-                print e
+                print(e)
                 self._make_parent_dir(dirname)
 
     def _download_ftp_file(self, ftp_handle, name, dest, overwrite):
@@ -313,7 +313,7 @@ class FtpConnector(TemplateConnection):
         """ replicates a directory on an ftp server recursively """
         for item in ftp_handle.nlst(name):
             if os.path.dirname(item) == '':
-                print os.path.dirname(item)
+                print(os.path.dirname(item))
                 item = name + '/' + item
             if self._is_ftp_dir(ftp_handle, item, guess_by_extension):
                 self._mirror_ftp_dir(ftp_handle, item, overwrite, guess_by_extension)
@@ -354,7 +354,7 @@ class FtpConnector(TemplateConnection):
         ftp = ftplib.FTP(self._server_name, self._userName, self._userPwd)
         if remote_dir == '/' or remote_dir == '':
             dir1 = ftp.nlst()
-            print ftp
+            print(ftp)
             for item in dir1:
                 try:
                     if type(ftp.size(item)) == int:
@@ -457,7 +457,7 @@ class FtpConnector(TemplateConnection):
             self.start_checkout(path)
         try:
             return tuple(os.lstat(self._fqn(path)))
-        except Exception, e:
+        except Exception as e:
             self._mylogger.info("FtpConnector.lstat(): Exception, %s on path=%s" % (e, path))
             raise IOError(e)
 
@@ -485,7 +485,7 @@ class FtpConnector(TemplateConnection):
         #self._mylogger.info('FtpConnector.create_file(): path=%s, size=%s, map=%s' % (path, str(size), str(attrMap)))
         try:
             fileHandle.setOsHandle(os.open(self._fqn(path), os.O_RDWR|os.O_CREAT))
-        except Exception, e:
+        except Exception as e:
             raise IOError(e)
 
         return fileHandle
@@ -499,7 +499,7 @@ class FtpConnector(TemplateConnection):
         try:
             self.lstat(requestPath)
             return True
-        except Exception, e:
+        except Exception as e:
             return False
 
     # ------------------------------------------------------------------------
@@ -510,7 +510,7 @@ class FtpConnector(TemplateConnection):
         #self._mylogger.info("FtpConnector._truncateFile(): path=%s" % path)
         try:
            return os.open(self._fqn(path), os.O_RDWR|os.O_TRUNC)
-        except Exception, e:
+        except Exception as e:
             #self._mylogger.info("FtpConnector._truncateFile(): Exception, %s on path=%s" % (e, path))
             raise IOError(e)
 
@@ -539,7 +539,7 @@ class FtpConnector(TemplateConnection):
                 try:
                     fileHandle.setOsHandle(os.open(self._fqn(path), os.O_RDONLY))
                     #self._mylogger.info("FtpConnector.open_file: The file, %s opened successfully." % (path))
-                except Exception, e:
+                except Exception as e:
                     #self._mylogger.info("FtpConnector.open_file: Error %s opening %s." % (e, path))
                     raise IOError(e)
         elif mode==TemplateConnection.FILE_WRITE:
@@ -547,13 +547,13 @@ class FtpConnector(TemplateConnection):
                 #self._mylogger.info("FtpConnector.open_file: File '%s' doesn't exist, create it." % (path))
                 try:
                     fileHandle.setOsHandle(os.open(self._fqn(path), os.O_RDWR|os.O_CREAT))
-                except Exception, e:
+                except Exception as e:
                     raise IOError(e)
             else:
                 #self._mylogger.info("FtpConnector.open_file: File '%s' exists, truncate it." % (path))
                 try:
                     fileHandle.setOsHandle(self._truncateFile(path))
-                except Exception, e:
+                except Exception as e:
                     raise IOError(e)
         else:
             #self._mylogger.info("FtpConnector.open_file:Open mode %s is not supported." % (mode))
@@ -583,7 +583,7 @@ class FtpConnector(TemplateConnection):
 
         try:
             w = os.write(fileHandle.getOsHandle(), filebuf)
-        except Exception, e:
+        except Exception as e:
             raise IOError("FtpConnector.write_file: Error %s on '%s'." % (e, path))
 
         # TODO: Should short writes be reported?
@@ -614,7 +614,7 @@ class FtpConnector(TemplateConnection):
             raise IOError("FtpConnector.read_file: File %s, not open." % (path))
         try:
             buf = os.read(fileHandle.getOsHandle(), readSize)
-        except Exception, e:
+        except Exception as e:
             raise IOError("FtpConnector.read_file: Error %s on '%s'." % (e, path))
 
         return buf
@@ -635,7 +635,7 @@ class FtpConnector(TemplateConnection):
         try:
             buf = os.close(fileHandle.getOsHandle())
             fileHandle.setOsHandle(None)
-        except Exception, e:
+        except Exception as e:
             raise IOError("FtpConnector.close: Error %s." % (e))
         return {}
 
@@ -663,7 +663,7 @@ class FtpConnector(TemplateConnection):
         #self._mylogger.info('FtpConnector.setTimestamps path: >%s< '  % (path))
         try:
             os.utime(self._fqn(path), (mtime, atime))
-        except Exception, e:
+        except Exception as e:
             raise IOError("FtpConnector.setTimestamps: Error's'" % (e))
 
         return True
@@ -677,7 +677,7 @@ class FtpConnector(TemplateConnection):
         #self._mylogger.info('FtpConnector.makedirs():  path->%s< ' % (path))
         try:
             os.makedirs(self._fqn(path))
-        except Exception, e:
+        except Exception as e:
             raise IOError("FtpConnector.makedirs: Error %s." % (e))
 
         return True
@@ -693,7 +693,7 @@ class FtpConnector(TemplateConnection):
             if not path.startswith('/'):
                 p = self._fqn(path)
             os.rmdir(p)
-        except Exception, e:
+        except Exception as e:
             raise IOError("FtpConnector.rmdir: Error %s." % (e))
         return True
 
@@ -708,7 +708,7 @@ class FtpConnector(TemplateConnection):
             if not path.startswith('/'):
                 p = self._fqn(path)
             os.unlink(p)
-        except Exception, e:
+        except Exception as e:
             #self._mylogger.info("FtpConnector.unlink(): Exception, %s on path=%s" % (e, path))
             raise IOError("FtpConnector.unlink: Error %s." % (e))
         return True
@@ -790,7 +790,7 @@ class FtpConnector(TemplateConnection):
         #self._mylogger.info('FtpConnector.verify_mount(): path=%s, includeDirs=%s' % (path, includeDirs))
         try:
             readable = self.is_dir(path)
-        except Exception, err:
+        except Exception as err:
             #self._mylogger.info("FtpConnector.verify_mount(): %s failed checking path. (%s)" % (path, err))
             errlist.append(str(err))
             verified = False
@@ -798,11 +798,11 @@ class FtpConnector(TemplateConnection):
         try:
             writeErrlist, writable, deleted = self._verify_write(path)
             errlist.extend(writeErrlist)
-        except Exception, err:
+        except Exception as err:
             #self._mylogger.info("FtpConnector.verify_mount(): %s failed verifying write. (%s)" % (path, err))
             errlist.append(str(err))
 
         return (verified, errlist, readable, writable)
 
 if __name__ == '__main__':
-    print 'sample_conn.main(): started'
+    print('sample_conn.main(): started')
