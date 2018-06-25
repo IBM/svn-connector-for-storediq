@@ -86,12 +86,12 @@ If you want to know the steps to develop the connector, read the details provide
 
 > Here examples, code-snippets and snapshots are shown for `svn connector`. The steps for `ftp connector` are the same. Please see the folder `ftp_connector` for details.
 
-Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.6/site-packages/siq_connector` folder. More details for these modules can be found [here](doc/IBM_StoredIQ_Connector_API_SDK.pdf).
+Connector API SDK shares the Python modules with the user that acts as a template for developing a new connector. These modules contain the default implementation and the utility functions. These shared modules come preinstalled in the `/usr/lib/python2.7/site-packages/siq_connector` folder. More details for these modules can be found [here](doc/IBM_StoredIQ_Connector_API_SDK.pdf).
 
-The connector API SDK also includes code that implements a fully working NFS based sample connector. This sample connector is also preinstalled at `/usr/lib/python2.6/site-packages/sample_connector` folder. To make development of a new data source connector simpler, we have chosen this `sample_connector` as a base code. We will copy this folder as a new connector folder. In this pattern, we have given name as `svn_connector`.
+The connector API SDK also includes code that implements a fully working NFS based sample connector. This sample connector is also preinstalled at `/usr/lib/python2.7/site-packages/sample_connector` folder. To make development of a new data source connector simpler, we have chosen this `sample_connector` as a base code. We will copy this folder as a new connector folder. In this pattern, we have given name as `svn_connector`.
 
 ```
-$ cd /usr/lib/python2.6/site-packages
+$ cd /usr/lib/python2.7/site-packages
 $ cp -r sample_connector svn_connector
 ```
 
@@ -140,10 +140,10 @@ To integrate the connector with live Stored IQ, need to copy the directory that 
 
 ```
  # for Data server
- scp –rp svn_connector root@<IP address of Dataserver>:/usr/lib/python2.6/site-packages
+ scp –rp svn_connector root@<IP address of Dataserver>:/usr/lib/python2.7/site-packages
  
  # for Gateway
- scp –rp svn_connector root@<IP address of Gateway>:/usr/lib/python2.6/site-packages
+ scp –rp svn_connector root@<IP address of Gateway>:/usr/lib/python2.7/site-packages
 ```
 > **Note:** 
 > 1. If development system is Windows, then copy operation can be done using `winscp`.
@@ -156,7 +156,7 @@ To register the connector, perform the following steps on each Data Server and G
 1.	Change your directory to site-packages.
    
    ```
-   cd /usr/lib/python2.6/site-packages
+   cd /usr/lib/python2.7/site-packages
    ```
   
 2. Run the following command.
