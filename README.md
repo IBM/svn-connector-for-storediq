@@ -1,4 +1,4 @@
-## ** work in progress **
+
 # Adding new data sources to IBM StoredIQ using Connector API SDK 
 
 Data is growing exponentially. With this growth of data, organizations find it difficult to make business value out of this data effectively. This growth in data has also contributed to new challenges like security, governing and protecting privacy. IBM StoredIQ platform provides powerful solutions for managing unstructured data in-place. It addresses the problems of records management, electronic discovery, compliance, storage optimization, and data migration initiatives. 
