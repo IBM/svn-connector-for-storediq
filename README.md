@@ -21,7 +21,7 @@ This code pattern helps you to understand the methodology and the steps of build
 
 ## Included Components
 
-* [IBM StoredIQ](https://www.ibm.com/support/knowledgecenter/en/SSSHEC_7.6.0/overview/overview.html): IBM StoredIQ Platform provides scalable analysis and governance of unstructured data in-place across disparate and distributed email, file shares, desktops, and collaboration sites.
+* [IBM StoredIQ](https://www.ibm.com/support/knowledgecenter/SSSHEC_7.6.0/overview/cpt/cpt_overview.html): IBM StoredIQ Platform provides scalable analysis and governance of unstructured data in-place across disparate and distributed email, file shares, desktops, and collaboration sites.
 
 * [SVN Server](https://docs.oracle.com/middleware/1212/core/MAVEN/config_svn.htm#MAVEN8824): Subversion is a version control system that keeps track of changes made to files and folders or directories, thus facilitating data recovery and providing a history of the changes that have been made over time.
 
